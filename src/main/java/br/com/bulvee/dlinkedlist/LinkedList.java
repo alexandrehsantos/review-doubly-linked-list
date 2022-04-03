@@ -11,10 +11,11 @@ public class LinkedList<T> {
         if (totalItems == 0) {
             addFirst(item);
         } else {
-//            Node newNode = new Node(item);
-//            this.lastNode.setNextNode(newNode);
-//            this.lastNode = newNode;
-//            this.totalItems++;
+            Node newNode = new Node(item);
+            lastNode.setNextNode(newNode);
+            newNode.setPreviousNode(this.lastNode);
+            this.lastNode = newNode;
+            totalItems ++;
         }
     }
 

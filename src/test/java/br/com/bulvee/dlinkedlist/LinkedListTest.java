@@ -101,6 +101,8 @@ class LinkedListTest extends Mock {
         linkedList.add(bbas3);
         linkedList.add(vale3);
 
+        System.out.println(linkedList);
+
         assertTrue(isIndex(2, vale3));
     }
 
