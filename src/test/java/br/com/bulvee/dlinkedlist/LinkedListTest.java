@@ -31,8 +31,9 @@ class LinkedListTest extends Mock {
         linkedList.addFirst(vale3);
 
         System.out.println(linkedList);
-        assertTrue(isIndex(0, vale3));
 
+        assertTrue(isAtIndex(1, bbas3));
+        assertTrue(isIndex(0, vale3));
     }
 
 
@@ -136,6 +137,24 @@ class LinkedListTest extends Mock {
         Assertions.assertFalse(isIndex(0, b3sa3));
         Assertions.assertTrue(isIndex(0, bbas3));
 
+    }
+
+    @Test
+    void givenItems_whenAddNewItemAtIndex_checkIndex_thenVerify(TestInfo testInfo) {
+        System.out.println("displayName = " + testInfo.getDisplayName());
+
+        linkedList.add(b3sa3);
+        linkedList.add(bbas3);
+        //2 - petr4
+        linkedList.add(vale3);
+        linkedList.add(irbr3);
+
+        linkedList.add(2, petr4);
+
+        System.out.println(linkedList);
+        Assertions.assertTrue(isIndex(1, bbas3));
+        Assertions.assertTrue(isIndex(2, petr4));
+        Assertions.assertTrue(isIndex(3, vale3));
     }
 
     private boolean isIndex(int index, Stock item) {

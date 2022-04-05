@@ -12,9 +12,11 @@ public class LinkedList<T> {
             addFirst(item);
         } else {
             Node newNode = new Node(item);
-            lastNode.setNextNode(newNode);
-            newNode.setPreviousNode(this.lastNode);
+            this.lastNode.setNextNode(newNode);
+            newNode.setPreviousNode(lastNode);
+
             this.lastNode = newNode;
+
             totalItems ++;
         }
     }
@@ -40,9 +42,18 @@ public class LinkedList<T> {
         } else if (index == this.totalItems) {
             add(item);
         } else {
-            Node previusNode = this.getNode(index - 1);
-            Node newNode = new Node(item, previusNode.getNextNode());
-            previusNode.setNextNode(newNode);
+            Node previous = this.getNode(index-1);
+            //Current Node
+            Node next = previous.getNextNode();
+            //The current node becames the next node for the new node.
+            Node newNode = new Node(item, next);
+            //The previus node of the index becomes the previus node of new node.
+            newNode.setPreviousNode(previous);
+            //The new node becomes the next node of the previous node.
+            previous.setNextNode(newNode);
+            //The new node becomes the previous node of the old nextNext node.
+            next.setPreviousNode(newNode);
+
             totalItems++;
         }
     }
