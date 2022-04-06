@@ -17,7 +17,7 @@ public class LinkedList<T> {
 
             this.lastNode = newNode;
 
-            totalItems ++;
+            totalItems++;
         }
     }
 
@@ -42,7 +42,7 @@ public class LinkedList<T> {
         } else if (index == this.totalItems) {
             add(item);
         } else {
-            Node previous = this.getNode(index-1);
+            Node previous = this.getNode(index - 1);
             //Current Node
             Node next = previous.getNextNode();
             //The current node becames the next node for the new node.
@@ -101,29 +101,47 @@ public class LinkedList<T> {
             throw new IllegalArgumentException("This list is empty");
         }
 
+        // The next node becomes the first node.
         this.firstNode = this.firstNode.getNextNode();
         totalItems--;
-
-        if (this.totalItems == 0) {
-            lastNode = null;
-        }
-
     }
 
     public void remove(int index) {
-
+        if (index == 0) {
+            this.removeFirst();
+        } else if (index == this.totalItems - 1) {
+            this.removeLast();
+        }
         if (isIndexInUse(index)) {
             Node node = getNode(index);
+
             Node nextNode = node.getNextNode();
-            Node previusNode = getNode(index - 1);
-            previusNode.setNextNode(nextNode);
+            Node previousNode = node.getPreviousNode();
+            //The next node becomes the next node of previous node.
+            previousNode.setNextNode(nextNode);
+            //The previous node of index becomes the previous node of next node.
+            nextNode.setPreviousNode(previousNode);
 
-
+            //It's not necessary, only to remember that this object has not any link in memory.
+            //In some cases set the variable to null can help the vm to free memory faster.
+            node = null;
             totalItems--;
         } else {
             throw new IllegalArgumentException("Invalid index.");
         }
+    }
 
+    public void removeLast() {
+        if (totalItems == 1) {
+            this.removeFirst();
+        } else {
+            //The lastButOne node becomes the last node, then the next node for it does not exist any more.
+            Node lastButOne = lastNode.getPreviousNode();
+            lastButOne.setNextNode(null);
+            this.lastNode = lastButOne;
+
+            totalItems--;
+        }
     }
 
     public int size() {

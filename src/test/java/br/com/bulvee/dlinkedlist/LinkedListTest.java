@@ -157,13 +157,65 @@ class LinkedListTest extends Mock {
         Assertions.assertTrue(isIndex(3, vale3));
     }
 
+    @Test
+    void givenItems_whenAddAtEnd_checkEndIndex_thenVerify(TestInfo testInfo) {
+        System.out.println("displayName = " + testInfo.getDisplayName());
+        linkedList.addFirst(b3sa3);
+        linkedList.addFirst(bbas3);
+        linkedList.addFirst(vale3);
+        linkedList.addFirst(irbr3);
+
+        linkedList.addLast(petr4);
+
+        System.out.println(linkedList);
+
+        int index = linkedList.size() - 1;
+        assertTrue(isAtIndex(index, petr4));
+
+    }
+
+    @Test
+    void givenItems_whenRemoveLast_checkLastItem_thenVerify(TestInfo testInfo) {
+        System.out.println("displayName = " + testInfo.getDisplayName());
+
+        linkedList.add(b3sa3);
+        linkedList.add(bbas3);
+        linkedList.add(vale3);
+        linkedList.add(irbr3);
+
+        System.out.println(linkedList);
+        linkedList.removeLast();
+        System.out.println(linkedList);
+
+        Assertions.assertTrue(isIndex(linkedList.size()-1, vale3));
+    }
+
+    @Test
+    void givenItems_whenRemoveAtIndex_checkPrevius_thenVerify(TestInfo testInfo){
+        System.out.println("displayName = " + testInfo.getDisplayName());
+
+        linkedList.add(b3sa3);
+        linkedList.add(bbas3);
+        linkedList.add(vale3);
+        linkedList.add(irbr3);
+        linkedList.add(petr4);
+
+        System.out.println(linkedList);
+        linkedList.remove(2);
+        System.out.println(linkedList);
+
+        Assertions.assertTrue(isIndex(2, irbr3));
+
+
+    }
+
     private boolean isIndex(int index, Stock item) {
         Stock stock = linkedList.get(index);
         return stock.equals(item);
     }
 
-    private boolean isAtIndex(int i, Object item) {
-        Stock stock = linkedList.get(1);
+    private boolean isAtIndex(int index, Object item) {
+        Stock stock = linkedList.get(index);
         return stock.equals(item);
     }
 
@@ -173,5 +225,7 @@ class LinkedListTest extends Mock {
 
         return lastItem.equals(item);
     }
+
+
 
 }
