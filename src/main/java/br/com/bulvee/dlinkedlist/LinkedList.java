@@ -152,6 +152,10 @@ public class LinkedList<T> {
         return false;
     }
 
+    public boolean isEmpty() {
+        return totalItems == 0;
+    }
+
     @Override
     public String toString() {
         if (this.totalItems == 0) {
