@@ -111,24 +111,27 @@ public class LinkedList<T> {
             this.removeFirst();
         } else if (index == this.totalItems - 1) {
             this.removeLast();
-        }
-        if (isIndexInUse(index)) {
-            Node node = getNode(index);
-
-            Node nextNode = node.getNextNode();
-            Node previousNode = node.getPreviousNode();
-            //The next node becomes the next node of previous node.
-            previousNode.setNextNode(nextNode);
-            //The previous node of index becomes the previous node of next node.
-            nextNode.setPreviousNode(previousNode);
-
-            //It's not necessary, only to remember that this object has not any link in memory.
-            //In some cases set the variable to null can help the vm to free memory faster.
-            node = null;
-            totalItems--;
         } else {
-            throw new IllegalArgumentException("Invalid index.");
+            if (isIndexInUse(index)) {
+                Node node = getNode(index);
+
+                Node nextNode = node.getNextNode();
+                Node previousNode = node.getPreviousNode();
+                //The next node becomes the next node of previous node.
+                previousNode.setNextNode(nextNode);
+                //The previous node of index becomes the previous node of next node.
+                nextNode.setPreviousNode(previousNode);
+
+                //It's not necessary, only to remember that this object has not any link in memory.
+                //In some cases set the variable to null can help the vm to free memory faster.
+                node = null;
+                totalItems--;
+            } else {
+                throw new IllegalArgumentException("Invalid index.");
+            }
+
         }
+
     }
 
     public void removeLast() {
